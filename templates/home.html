@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <title>Judge Data</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body style="background-color: grey; ">
+<div class="container jumbotron text-center">
+    <h1 class="">Judge Data</h1>
+    <form name="statute_search" method="POST" action="/statute">
+        <p class="lead">Search for statute</p>
+        <input class="text-center" type="text" name="statute_text" placeholder="e.g 2903.03">
+        <input class="btn btn-info" type="submit" name="Submit">
+        <p>OR</p>
+    </form>
+
+        <p class="lead">Search by judge and statute</p>
+
+    <form name="judge_search" method="POST" action="/judge">
+        {{ form.autocomp }}
+        <input class="text-center" type="text" name="judge_text" placeholder="ATTY">
+        <input class="text-center" type="text" name="judge_statute_text" placeholder="Statute">
+        <input class="btn btn-info" type="submit" name="Submit">
+    </form>
+
+<script>
+    $(function() {
+        $.ajax({
+            url: '{{ url_for("autocomplete") }}'
+            }).done(function (data){
+                $('#autocomp').autocomplete({
+                    source: data,
+                    minLength: 0
+                });
+            });
+        });
+</script>
+
+</body>
+</html>
